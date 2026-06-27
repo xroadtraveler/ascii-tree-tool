@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=77.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,9 +8,9 @@ version = "0.1.0"
 description = "Cross-platform desktop GUI for generating ASCII tree representations of folder structures, with .txt, .csv, and Mermaid output."
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "Apache-2.0" }
+license = "Apache-2.0"
 authors = [
-    { name = "TODO: Travis Rillos", email = "TODO: travis.rillos@gmail.com" }
+    { name = "Travis Rillos", email = "travis.rillos@gmail.com" }
 ]
 keywords = ["ascii-tree", "directory-tree", "documentation", "pyqt6", "gui"]
 classifiers = [
@@ -18,7 +18,6 @@ classifiers = [
     "Environment :: X11 Applications :: Qt",
     "Environment :: Win32 (MS Windows)",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: Apache Software License",
     "Operating System :: POSIX :: Linux",
     "Operating System :: Microsoft :: Windows",
     "Programming Language :: Python :: 3",
