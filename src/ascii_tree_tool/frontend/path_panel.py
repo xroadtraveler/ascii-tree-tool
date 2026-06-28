@@ -256,7 +256,12 @@ class PathPanel(QWidget):
         # [002] perform autofill if appropriate and target is a non-empty path
         if should_autofill and new_text.strip():
             try:
-                parent = str(Path(new_text.strip()).parent)
+                target_path = Path(new_text.strip())
+                # Path('.').parent equals Path('.'); explicitly use '..' for autofill.
+                if str(target_path) == ".":
+                    parent = ".."
+                else:
+                    parent = str(target_path.parent)
                 self._output_field.setText(parent)
                 self._last_autofilled_output = parent
             except (OSError, ValueError):
