@@ -42,7 +42,7 @@ Homepage = "https://github.com/xroadtraveler/ascii-tree-tool"
 Repository = "https://github.com/xroadtraveler/ascii-tree-tool"
 Issues = "https://github.com/xroadtraveler/ascii-tree-tool/issues"
 
-[project.gui-scripts]
+[project.scripts]
 ascii-tree-tool = "ascii_tree_tool.__main__:main"
 
 [tool.setuptools.packages.find]
