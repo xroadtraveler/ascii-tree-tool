@@ -29,6 +29,7 @@ classifiers = [
 ]
 dependencies = [
     "PyQt6>=6.6.0",
+    "platformdirs>=4.0",
 ]
 
 [project.optional-dependencies]
