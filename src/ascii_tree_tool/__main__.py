@@ -18,7 +18,9 @@ from __future__ import annotations
 import argparse
 import logging
 import sys
+from pathlib import Path
 
+from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication
 
 from ascii_tree_tool import __version__
@@ -75,9 +77,10 @@ def _build_arg_parser() -> argparse.ArgumentParser:
 # [20000] Beacon: Execution entry
 
 # [010] launch the GUI application
-# [SCOPE] parses CLI arguments, configures logging, creates the QApplication, instantiates 
-#         and shows MainWindow, applies the --target argument if given, and runs the Qt event 
-#         loop until window close. Reads sys.argv. May write to stderr via logging.
+# [SCOPE] parses CLI arguments, configures logging, creates the QApplication, sets the
+#         application-wide window icon, instantiates and shows MainWindow, applies the
+#         --target argument if given, and runs the Qt event loop until window close.
+#         Reads sys.argv and the bundled icon file. May write to stderr via logging.
 # [OUT-OF-SCOPE] writes to user files, validating the --target path against the filesystem, 
 #                parsing arguments beyond those defined in _build_arg_parser
 
@@ -104,16 +107,27 @@ def main() -> None:
     app = QApplication(sys.argv)
     # [-----END [003]-----]
 
-    # [004] instantiate and configure the main window
+    # [004] set application-wide window icon
+    # PyInstaller onefile mode extracts bundled data to sys._MEIPASS at runtime.
+    # In dev mode (running from source), __file__ is at src/<pkg>/__main__.py,
+    # so repo root is three parents up. Same path shape both ways: <base>/assets/.
+    if hasattr(sys, "_MEIPASS"):
+        _icon_base = Path(sys._MEIPASS)
+    else:
+        _icon_base = Path(__file__).resolve().parent.parent.parent
+    app.setWindowIcon(QIcon(str(_icon_base / "assets" / "ASCII_Tree_Icon.ico")))
+    # [-----END [004]-----]
+
+    # [005] instantiate and configure the main window
     window = MainWindow()
     if args.target:
         window.set_target_path(args.target)
-    # [-----END [004]-----]
+    # [-----END [005]-----]
 
-    # [005] show and run
+    # [006] show and run
     window.show()
     sys.exit(app.exec())
-    # [-----END [005]-----]
+    # [-----END [006]-----]
 
 # [-----END [010]-----]
 
